@@ -16,22 +16,9 @@ class ModularProcessor implements ModularSystemModule
     const RUN_PARALLEL = 'parallel';
     
     /**
-     * Порядок выполнения стратегий
-     *
      * @var array
      */
-    private static $sectionsOrder = [
-        self::SECTION_VERY_FIRST,
-        self::SECTION_BEFORE,
-        self::SECTION_RUN,
-        self::SECTION_AFTER,
-        self::SECTION_VERY_LAST
-    ];
-    
-    /**
-     * @var array
-     */
-    private $sectionsRun = [
+    protected $sectionsRun = [
         self::SECTION_VERY_FIRST => self::RUN_SERIAL,
         self::SECTION_BEFORE     => self::RUN_SERIAL,
         self::SECTION_RUN        => self::RUN_SERIAL,
@@ -74,12 +61,12 @@ class ModularProcessor implements ModularSystemModule
     
     /**
      * @param ModularStrategyInterface $strategy
-     * @param int $order
+     * @param int $section
      * @return $this
      */
-    public function addStrategy(ModularStrategyInterface $strategy, $order = self::SECTION_RUN)
+    public function addStrategy(ModularStrategyInterface $strategy, $section = self::SECTION_RUN)
     {
-        $this->strategies[$order][] = $strategy;
+        $this->strategies[$section][] = $strategy;
         
         return $this;
     }
